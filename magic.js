@@ -1,5 +1,10 @@
 var tab = "csv", header_alignment=[], array_storage="", form_rows=0, form_cols=0, prettify_md=true, debug=false, global_form_cols=0, delete_mode=false;
 
+var csv_content='The content in this table should be replaced,on demand by the application\naccording to the data file,to which it is applied\n';
+
+// this variable is to put this text back into the csv_content variable
+var csv_content_original_text='The content in this table should be replaced,on demand by the application\naccording to the data file,to which it is applied\n';
+
 var example_csv='Feature, Description, Example\n'+
                 'Renders markdown, Uses showdown library to render contents of table cells, **Just** *like* ``this``\n'+
                 'Escapes quotes, Easier to edit without so only uses them when necessary, "It does an \\\"okay\\\" job"\n'+
@@ -1349,6 +1354,32 @@ function tablebuilder_build(x,y) {
     form_resize();
 
   }
+
+}
+
+function fill_content() {
+
+  // Simulate switching to preview.
+  layout(false);
+  $('textarea').removeClass('md');
+  $('#md-options').hide();
+
+  // Convert example csv to array
+  var array = csv2array(csv_content);
+  header_alignment=['l','l','r'];
+
+  // And to html
+  var html = array2preview(array);
+
+  array_storge = array; // Store the array
+
+      $('.preview').html(html);
+
+      $('.tabnav-tab').removeClass('selected');
+      $('#tab-preview').addClass('selected');
+
+      // Update variables
+      tab = 'preview';
 
 }
 

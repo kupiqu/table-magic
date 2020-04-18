@@ -1,0 +1,13 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+# Copy/link me to e.g., $HOME/.local/share/applications
+# Set Icon path so the icon can be found
+Type=Application
+Version=1.1
+Name=Data Preview
+GenericName=CSV/TSV Data Previewer
+Comment=Quick previewer of your data opened in your favorite browser
+Icon=dataPreview.svg
+Exec=magic %f
+Terminal=false
+Categories=Data;Office;Science;Viewer;

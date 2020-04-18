@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>table-magic</title>
+  <title>Data Preview</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://cdn.rawgit.com/showdownjs/showdown/1.2.2/dist/showdown.min.js"></script>
   <script src="magic.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/primer/2.3.3/primer.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.1.0/octicons.min.css">
   <link rel="stylesheet" type="text/css" href="styles.css">
+  <script type="text/javascript">
+    $( window ).on( "load", fill_content );
+  </script>
 </head>
 <body>
 
 <div class="masthead">
   <div class="container">
-    <div class="title">table-magic</div>
+    <div class="title">Data Preview</div>
   </div>
 </div>
 
@@ -83,9 +86,7 @@
   </div>
 
 <div class="footer">
-  built by <a href="http://www.github.com/stevecat/">stevecat</a> &bull;
-  <a href="http://www.github.com/stevecat/table-magic">repo</a> &bull;
-  <a href="http://www.github.com/stevecat/table-magic/issues">issues</a> &bull;
+  Powered by <a href="http://www.github.com/stevecat/table-magic">table-magic</a> &bull;
   <a href="#" onclick="fill_example();">populate with example data</a>
 </div>
 
