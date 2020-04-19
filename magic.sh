@@ -19,9 +19,18 @@ mapfile -t < "$1" lines
 
 # need a for loop to add literal '\n' to each line
 cmax=$(cat "$1" | wc -l)
-for (( c=0; c<=$cmax-1; c++ ))
+# just show up to 1000 lines
+if [ $cmax -gt 1000 ]; then
+  cmax=1000
+fi
+for (( c=0; c<$cmax; c++ ))
 do
-  lines[$c]="${lines[$c]}\\\n"
+  # added line numbers for better readability
+  if [ $c -eq 0 ]; then
+    lines[$c]="Line,${lines[$c]}\\\n"
+  else
+    lines[$c]="$c,${lines[$c]}\\\n"
+  fi
 done
 data_content=$(printf "%s" "${lines[@]}")
 

@@ -1,19 +1,19 @@
-var tab = "csv", header_alignment=[], array_storage="", form_rows=0, form_cols=0, prettify_md=true, debug=false, global_form_cols=0, delete_mode=false;
+var tab = "csv", header_alignment = [], array_storage = "", form_rows = 0, form_cols = 0, prettify_md = true, debug = false, global_form_cols = 0, delete_mode = false;
 
-var csv_content='The content in this table should be replaced,on demand by the application\naccording to the data file,to which it is applied\n';
+var csv_content='Line,The content in this table should be replaced,on demand by the application\n1,according to the data file,to which it is applied\n';
 
 // this variable is to put this text back into the csv_content variable
-var csv_content_original_text='The content in this table should be replaced,on demand by the application\naccording to the data file,to which it is applied\n';
+var csv_content_original_text='Line,The content in this table should be replaced,on demand by the application\n1,according to the data file,to which it is applied\n';
 
-var example_csv='Feature, Description, Example\n'+
-                'Renders markdown, Uses showdown library to render contents of table cells, **Just** *like* ``this``\n'+
-                'Escapes quotes, Easier to edit without so only uses them when necessary, "It does an \\\"okay\\\" job"\n'+
-                'Preview table matches GitHub style, As closely as possible, Look!\n'+
-                'Preserves alignment, Between all views, Switch to CSV and back\n'+
-                'Import HTML, Converts back and forth, Copy from *Inspect Element*\n'+
-                'Markdown formatting, "Adds spaces, makes things more legible",Markdown tab\n'+
-                'Form view, "Create tables with buttons!",Form tab\n'+
-                'Hasn\\\'t caught fire yet, So far, Huzzah!';
+var example_csv='Line, Feature, Description, Example\n'+
+                '1, Renders markdown, Uses showdown library to render contents of table cells, **Just** *like* ``this``\n'+
+                '2, Escapes quotes, Easier to edit without so only uses them when necessary, "It does an \\\"okay\\\" job"\n'+
+                '3, Preview table matches GitHub style, As closely as possible, Look!\n'+
+                '4, Preserves alignment, Between all views, Switch to CSV and back\n'+
+                '5, Import HTML, Converts back and forth, Copy from *Inspect Element*\n'+
+                '6, Markdown formatting, "Adds spaces, makes things more legible",Markdown tab\n'+
+                '7, Form view, "Create tables with buttons!",Form tab\n'+
+                '8, Hasn\\\'t caught fire yet, So far, Huzzah!';
 
 $(window).load(function() {
 
@@ -973,10 +973,11 @@ function array2preview(array) {
 
   html += "</tbody></table>";
 
-  if (array.length===0) { html += "<div class=\"flash flash-warn flash-with-icon\">"+
-                                  "<span class=\"octicon octicon-alert\"></span>"+
-                                  "Nothing to preview.</div>"
-                        }
+  if (array.length===0) {
+    html += "<div class=\"flash flash-warn flash-with-icon\">"+
+            "<span class=\"octicon octicon-alert\"></span>"+
+            "Nothing to preview.</div>"
+  }
 
   return html;
 
@@ -1363,23 +1364,24 @@ function fill_content() {
   layout(false);
   $('textarea').removeClass('md');
   $('#md-options').hide();
+  $('#csv-options').hide();
 
   // Convert example csv to array
   var array = csv2array(csv_content);
-  header_alignment=['l','l','r'];
+  header_alignment=['c'];
 
   // And to html
   var html = array2preview(array);
 
   array_storge = array; // Store the array
 
-      $('.preview').html(html);
+  $('.preview').html(html);
 
-      $('.tabnav-tab').removeClass('selected');
-      $('#tab-preview').addClass('selected');
+  $('.tabnav-tab').removeClass('selected');
+  $('#tab-preview').addClass('selected');
 
-      // Update variables
-      tab = 'preview';
+  // Update variables
+  tab = 'preview';
 
 }
 
@@ -1392,10 +1394,11 @@ function fill_example() {
     layout(false);
     $('textarea').removeClass('md');
     $('#md-options').hide();
+    $('#csv-options').hide();
 
     // Convert example csv to array
     var array = csv2array(example_csv);
-    header_alignment=['l','l','r'];
+    header_alignment=['c','l','l','r'];
 
     // And to html
     var html = array2preview(array);

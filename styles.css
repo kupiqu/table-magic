@@ -3,11 +3,11 @@ body {
 }
 
 .masthead {
-padding-top: 1rem;
-padding-bottom: 1rem;
-margin-bottom: 1rem;
-background-color: #BE3B77;
-color:#fff;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  background-color: #BE3B77;
+  color:#fff;
 }
 
 .masthead .title {
@@ -46,21 +46,25 @@ div.buttonbar {
 }
 
 table {
-    display: table;
-    border-collapse: separate;
-    border-color: grey;
-    border-collapse: collapse;
-    border-spacing: 0;
-    padding:0;
+  display: table;
+  border-collapse: separate;
+  border-color: grey;
+  border-collapse: collapse;
+  border-spacing: 0;
+  padding:0;
+}
+
+table td:nth-child(1) {
+  border: 1px solid #be3b77;
 }
 
 table tr:nth-child(2n) {
-    background-color: #f8f8f8;
+  background-color: #f8f8f8;
 }
 
 table tr {
-    background-color: #fff;
-    border-top: 1px solid #ccc;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
 }
 
 table td {
@@ -82,7 +86,7 @@ table.form td {
 }
 
 table.form tr:nth-child(2n) input {
-    background-color: #f8f8f8;
+  background-color: #f8f8f8;
 }
 
 table.form input {
@@ -119,18 +123,18 @@ button.btn-formmod:hover {
 }
 
 /* form scaling */
-  table.form {
-    width:100%;
-  }
+table.form {
+  width:100%;
+}
 
-  table.form.scroll {
-    table-layout: fixed;
-    margin-bottom:7px;
-  }
+table.form.scroll {
+  table-layout: fixed;
+  margin-bottom:7px;
+}
 
-  table.form.scroll td {
-    width:170px;
-  }
+table.form.scroll td {
+  width:170px;
+}
 
 input.header {
   font-weight:bold;
