@@ -19,10 +19,10 @@ mapfile -t < "$1" lines
 
 # need a for loop to add literal '\n' to each line
 cmax=$(cat "$1" | wc -l)
-# just showing up to 1000 lines
-if [ $cmax -gt 1000 ]; then
-  # showing first 500 and last 500 lines with a "..." line in between
-  for (( c=0; c<501; c++ ))
+# just showing up to 100 lines
+if [ $cmax -gt 100 ]; then
+  # showing first 50 and last 50 lines with a "..." line in between
+  for (( c=0; c<51; c++ ))
   do
     # added line numbers for better readability
     if [ $c -eq 0 ]; then
@@ -31,14 +31,14 @@ if [ $cmax -gt 1000 ]; then
       lines[$c]="$c,${lines[$c]}\\\n"
     fi
   done
-  for (( c=$(($cmax-500)); c<$cmax; c++ ))
+  for (( c=$(($cmax-50)); c<$cmax; c++ ))
   do
-    d=$(($c-$cmax+1002))
+    d=$(($c-$cmax+102))
     # added line numbers for better readability
     lines[$d]="$c,${lines[$c]}\\\n"
   done
-  lines[501]="...\\\n"
-  data_content=$(printf "%s" "${lines[@]: 0:1002}")
+  lines[51]="...\\\n"
+  data_content=$(printf "%s" "${lines[@]: 0:102}")
 else
   for (( c=0; c<$cmax; c++ ))
   do
@@ -54,7 +54,29 @@ fi
 
 magicjs_file="$path_tableMagic/magic.js"
 
-sed -i "s|^var\scsv_content=.*$|var csv_content='$data_content';|" "$magicjs_file"
+{ # try
+
+    # using `|` as delimiter as some entries might be paths using `/`
+
+    sed -i "s|^var\scsv_content=.*$|var csv_content='$data_content';|" "$magicjs_file"
+
+} || { # catch
+
+    # sed failed, cannot use `|` as delimiter, trying `/`
+
+    { # try
+
+      sed -i "s/^var\scsv_content=.*$/var csv_content='$data_content';/" "$magicjs_file"
+
+  } || { # catch
+
+      # neither delimiter was successful, requesting manual intervention
+
+      sed -i "s/^var\scsv_content=.*$/var csv_content='Line,The data parser failed\\\n1,The most likely explanation is that data contains pipe symbols and forward slashes\\\n2,Please replace one either of the symbols externally and try again';/" "$magicjs_file"
+
+  }
+
+}
 
 xdg-open "$path_tableMagic/dataPreview.html"
 
