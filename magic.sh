@@ -54,7 +54,7 @@ fi
 
 magicjs_file="$path_tableMagic/magic.js"
 
-sed -i "s/^var\scsv_content=.*$/var csv_content='$data_content';/" "$magicjs_file"
+sed -i "s|^var\scsv_content=.*$|var csv_content='$data_content';|" "$magicjs_file"
 
 xdg-open "$path_tableMagic/dataPreview.html"
 
