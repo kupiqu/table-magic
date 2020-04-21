@@ -13,15 +13,28 @@
 
 path_tableMagic="$HOME/table-magic"
 
-# Inserting data content
+# Converting DOS style endlines to UNIX (if any)
 
-mapfile -t < "$1" lines
+rsync -a "$1" "$path_tableMagic/.tmpfile"
+sed -i 's/\r$//' "$path_tableMagic/.tmpfile"
+
+# Extracting data content
+
+mapfile -t < "$path_tableMagic/.tmpfile" lines
 
 # need a for loop to add literal '\n' to each line
-cmax=$(cat "$1" | wc -l)
-# just showing up to 100 lines
+cmax=$(cat "$path_tableMagic/.tmpfile" | wc -l)
+
+# Removing the temporal file
+
+rm -f "$path_tableMagic/.tmpfile"
+
+# Showing up to 100 lines
+
 if [ $cmax -gt 100 ]; then
+
   # showing first 50 and last 50 lines with a "..." line in between
+
   for (( c=0; c<51; c++ ))
   do
     # added line numbers for better readability
@@ -31,15 +44,19 @@ if [ $cmax -gt 100 ]; then
       lines[$c]="$c,${lines[$c]}\\\n"
     fi
   done
+
   for (( c=$(($cmax-50)); c<$cmax; c++ ))
   do
     d=$(($c-$cmax+102))
     # added line numbers for better readability
     lines[$d]="$c,${lines[$c]}\\\n"
   done
+
   lines[51]="...\\\n"
   data_content=$(printf "%s" "${lines[@]: 0:102}")
+
 else
+
   for (( c=0; c<$cmax; c++ ))
   do
     # added line numbers for better readability
@@ -49,8 +66,12 @@ else
       lines[$c]="$c,${lines[$c]}\\\n"
     fi
   done
+
   data_content=$(printf "%s" "${lines[@]}")
+
 fi
+
+# Inserting data content
 
 magicjs_file="$path_tableMagic/magic.js"
 
@@ -77,6 +98,8 @@ magicjs_file="$path_tableMagic/magic.js"
   }
 
 }
+
+# Previewing the result in the browser
 
 xdg-open "$path_tableMagic/dataPreview.html"
 
