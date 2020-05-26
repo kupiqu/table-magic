@@ -11,7 +11,7 @@
 
 # Path
 
-path_tableMagic="$HOME/table-magic"
+path_tableMagic="$HOME/Documents/al3/table-magic"
 
 # Converting DOS style endlines to UNIX (if any)
 
@@ -23,7 +23,7 @@ sed -i 's/\r$//' "$path_tableMagic/.tmpfile"
 mapfile -t < "$path_tableMagic/.tmpfile" lines
 
 # need a for loop to add literal '\n' to each line
-cmax=$(cat "$path_tableMagic/.tmpfile" | wc -l)
+cmax=$(wc -l "$path_tableMagic/.tmpfile" | cut -d ' ' -f1)
 
 # Removing the temporal file
 
